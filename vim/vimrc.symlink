@@ -3,7 +3,30 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " load plugins from vundle
-source ~/.vim/plugins.vim
+filetype off
+
+set rtp+=~/.vim/bundle/vundle/
+call vundle#begin()
+
+" let vundle manage vundle
+Plugin 'gmarik/vundle'
+
+" utilities
+Plugin 'kien/ctrlp.vim' " fuzzy find files
+Plugin 'scrooloose/nerdtree' " file drawer, open with :NERDTreeToggle
+Plugin 'benmills/vimux'
+Plugin 'tpope/vim-fugitive' " the ultimate git helper
+Plugin 'tpope/vim-commentary' " comment/uncomment lines with gcc or gc in visual mode
+
+" colorschemes
+Plugin 'chriskempson/base16-vim'
+
+" JavaScript plugins
+Plugin 'pangloss/vim-javascript'
+Plugin 'jelera/vim-javascript-syntax'
+
+call vundle#end()
+filetype plugin indent on
 
 set nocompatible " not compatible with vi
 set autoread " detect when a file is changed
@@ -15,7 +38,7 @@ set backspace=indent,eol,start
 let mapleader = ','
 
 " Tab control
-set noexpandtab " insert tabs rather than spaces for <Tab>
+set noexpandtab " tabs ftw
 set smarttab " tab respects 'tabstop', 'shiftwidth', and 'softtabstop'
 set tabstop=4 " the visible width of tabs
 set softtabstop=4 " edit as if the tabs are 4 characters wide
@@ -49,20 +72,16 @@ set magic " Set magic on, for regex
 set showmatch " show matching braces
 set mat=2 " how many tenths of a second to blink
 
-" error bells
-set noerrorbells
-set visualbell
-set t_vb=
-set tm=500
-
 " switch syntax highlighting on
 syntax on
 
 set encoding=utf8
 let base16colorspace=256  " Access colors present in 256 colorspace"
 set t_Co=256 " Explicitly tell vim that the terminal supports 256 colors"
-execute "set background=".$BACKGROUND
-execute "colorscheme ".$THEME
+set background=dark
+colorscheme delek
+
+set number
 
 set autoindent " automatically set indent of new line
 set smartindent
@@ -75,15 +94,7 @@ set laststatus=2 " show the satus line all the time
 
 map <leader>ev :e! ~/.vimrc<cr> " edit ~/.vimrc
 
-map <silent> <C-h> :call WinMove('h')<cr>
-map <silent> <C-j> :call WinMove('j')<cr>
-map <silent> <C-k> :call WinMove('k')<cr>
-map <silent> <C-l> :call WinMove('l')<cr>
-
 map <leader>wc :wincmd q<cr>
-
-" toggle cursor line
-nnoremap <leader>i :set cursorline!<cr>
 
 " moving up and down work as you would expect
 nnoremap <silent> j gj
@@ -96,6 +107,11 @@ nmap \s :set ts=4 sts=4 sw=4 et<cr>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+map <C-h> :call WinMove('h')<cr>
+map <C-j> :call WinMove('j')<cr>
+map <C-k> :call WinMove('k')<cr>
+map <C-l> :call WinMove('l')<cr>
 
 " Window movement shortcuts
 " move to the window in the direction shown, or create a new window
@@ -113,7 +129,7 @@ function! WinMove(key)
 endfunction
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Plugins
+" => Plugin settings
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 " close NERDTree after a file is opened
@@ -140,10 +156,3 @@ let g:ctrlp_custom_ignore = {
 
 " search the nearest ancestor that contains .git, .hg, .svn
 let g:ctrlp_working_path_mode = 2
-
-
-" airline options
-let g:airline_powerline_fonts=1
-let g:airline_theme='base16'
-
-let g:SuperTabCrMapping = 0
