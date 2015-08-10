@@ -14,10 +14,10 @@ if [ "$(uname)" == "Darwin" ]; then
     ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
     echo "Brewing all the things"
-    source scripts/brew.sh
+    source install/brew.sh
 
     echo "Updating OSX settings"
-    source scripts/osx.sh
+    source install/osx.sh
 
     echo "Installing node (from nvm)"
     nvm install stable
